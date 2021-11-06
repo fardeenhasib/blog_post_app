@@ -1,0 +1,15 @@
+#goto routes to enter paths
+
+#add crud Article table
+resourcess :articles
+
+then to overcome the errors create a articles_controller.rb in controller folder and a articles folder and inside it a new.html.erb file to display whatever u wanna show in that page..
+#in the display page there should a form_for in a do block to dsiplay the labels and the coressponding field using the parameters of Article
+
+also include f.submit to make a submit button which will direct to create action in ArticlesController.rb file
+
+but as of now it will not render anything after creating new @article because he havent defined what to show after creating a new article instance.
+
+so we need to add def show in artcile_controller...but, nonetheless, in the db the new instance of article is already created
+
+
