@@ -1,0 +1,39 @@
+ubuntu:~/environment/code/rails_new_proj/blog_post (master) $ rails console
+2.6.3 :001 > Article.all
+  Article Load (5.0ms)  SELECT "articles".* FROM "articles"
+ => #<ActiveRecord::Relation [#<Article id: 1, title: "This is the first article", description: "This is the second description", created_at: "2021-11-06 03:53:02", updated_at: "2021-11-06 03:53:02">, #<Article id: 2, title: "This is the second article", description: "This is the second description", created_at: "2021-11-06 03:53:43", updated_at: "2021-11-06 03:53:43">]> 
+2.6.3 :002 > article = Article.find 2
+  Article Load (0.2ms)  SELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?  [["id", 2], ["LIMIT", 1]]
+ => #<Article id: 2, title: "This is the second article", description: "This is the second description", created_at: "2021-11-06 03:53:43", updated_at: "2021-11-06 03:53:43"> 
+ article
+ => #<Article id: 2, title: "This is the second article", description: "This is the second description", created_at: "2021-11-06 03:53:43", updated_at: "2021-11-06 03:53:43"> 
+2.6.3 :005 > article.title = 'this an edited second article'
+ => "this an edited second article" 
+2.6.3 :006 > article
+ => #<Article id: 2, title: "this an edited second article", description: "This is the second description", created_at: "2021-11-06 03:53:43", updated_at: "2021-11-06 03:53:43"> 
+2.6.3 :007 > 
+2.6.3 :004 > article = Article.find 1                                                                                                                                                                                
+  Article Load (0.2ms)  SELECT  "articles".* FROM "articles" WHERE "articles"."id" = ? LIMIT ?  [["id", 1], ["LIMIT", 1]]
+ => #<Article id: 1, title: "This is the first article", description: "This is the second description", created_at: "2021-11-06 03:53:02", updated_at: "2021-11-06 03:53:02"> 
+2.6.3 :005 > article.destroy
+   (0.1ms)  begin transaction
+  SQL (1.2ms)  DELETE FROM "articles" WHERE "articles"."id" = ?  [["id", 1]]
+   (6.8ms)  commit transaction
+ => #<Article id: 1, title: "This is the first article", description: "This is the second description", created_at: "2021-11-06 03:53:02", updated_at: "2021-11-06 03:53:02"> 
+2.6.3 :006 > Article.all
+  Article Load (0.1ms)  SELECT "articles".* FROM "articles"
+ => #<ActiveRecord::Relation [#<Article id: 2, title: "This is the second article", description: "This is the second description", created_at: "2021-11-06 03:53:43", updated_at: "2021-11-06 03:53:43">]> 
+2.6.3 :007 > 
+
+code in article.rb
+
+class Article < ActiveRecord::Base
+    validates :title, presence: true, length: {minimum: 3, maximum: 50}
+    validates :description, presence: true, length: {minimum: 3, maximum: 50}
+end
+
+
+
+2.6.3 :010 > article.errors.full_messages
+ => ["Title is too short (minimum is 3 characters)", "Description is too short (minimum is 3 characters)"] 
+2.6.3 :011 > 
