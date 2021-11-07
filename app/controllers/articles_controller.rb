@@ -3,8 +3,24 @@ class ArticlesController < ApplicationController
        @article = Article.new
    end
    
+   def edit
+      @article = Article.find(params[:id])
+   end
+   
    def show
       @article = Article.find(params[:id])
+   end
+   
+   def update
+      #render plain: params[:article].inspect
+      @article = Article.find(params[:id])
+      if @article.update(article_params) 
+         #do sth
+         flash[:notice] = "Article was succesfully updated"
+         redirect_to article_path(@article)  #show_path  article/id format
+      else
+         render 'edit'
+      end 
    end
    
    def create
@@ -13,7 +29,7 @@ class ArticlesController < ApplicationController
       if @article.save
          #do sth
          flash[:notice] = "Article was succesfully created"
-         redirect_to article_path(@article)
+         redirect_to article_path(@article)  #show_path  article/id format
       else
          render 'new'
       end
